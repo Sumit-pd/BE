@@ -5,10 +5,11 @@ const app = express()
 const authRoutes = require('./routes/auth')
 const deanRoutes = require('./routes/dean')
 const studentRoutes = require('./routes/student')
+const dotenv = require('dotenv')
 
 const port = 5000
-
-mongoose.connect('mongodb+srv://sumit21:1234567890@cluster0.ypaj7rq.mongodb.net/?retryWrites=true&w=majority', {
+dotenv.config();
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
