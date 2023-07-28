@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../models/student')
-const Dean = require('../models/dean')
 const jwt = require('jsonwebtoken')
-const key = process.env.key
+const key = "process.env.key"
 
 router.post('/student/login', async (req, res) => {
     const { id, password } = req.body;

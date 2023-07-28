@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const key = process.env.key
+const key = "process.env.key"
 const authenticateUser = (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
