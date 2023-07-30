@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth')
 const deanRoutes = require('./routes/dean')
 const studentRoutes = require('./routes/student')
 const dotenv = require('dotenv')
+const availableSlots = require('./models/availableSlots')
 
 const port = 5000
 dotenv.config();
@@ -31,5 +32,12 @@ app.use(express.json())
 app.use('/auth', authRoutes);
 app.use('/student', studentRoutes);
 app.use('/dean', deanRoutes);
+
+
+
+
+
+
+
 
 
