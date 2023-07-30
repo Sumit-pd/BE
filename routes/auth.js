@@ -28,7 +28,7 @@ router.post('/dean/login', async (req, res) => {
         const dean1 = {
             id, password
         };
-        if (!key) {
+        if (!val) {
             return res.status(500).json({ Error: "Secret key is not set" });
         }
         const token = jwt.sign(dean1, val);

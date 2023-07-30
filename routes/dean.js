@@ -8,7 +8,7 @@ const bookedSlot = require('../models/bookedSlots')
 router.post('/pendingsessions', authenticateUser, async (req, res) => {
   const { name } = req.body;
   try {
-    const data = await bookedSlot.find({ "deanName": name }).select('studentName deanName time day');
+    const data = await bookedSlot.find({ "deanName": name }).select('studentName time day');
     res.status(200).json(data)
 
 

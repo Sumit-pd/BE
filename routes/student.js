@@ -12,7 +12,7 @@ const app = express()
 
 router.get('/freesessions', authenticateUser, async (req, res) => {
   try {
-    const data = await availableSlots.find({ Isbooked: false })
+    const data = await availableSlots.find({ Isbooked: false }).select('day time dean')
 
     res.status(200).json(data);
   } catch (error) {
