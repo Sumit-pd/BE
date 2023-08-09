@@ -21,4 +21,4 @@ const slotsSchema = new mongoose.Schema({
         default: null
     }
 })
-module.exports = mongoose.model('slots', slotsSchema)
+module.exports = mongoose.model('slot', slotsSchema)
