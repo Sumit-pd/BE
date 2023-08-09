@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const availableSlotsSchema = new mongoose.Schema({
+const slotsSchema = new mongoose.Schema({
     day: {
         type: String,
         required: true
@@ -21,4 +21,4 @@ const availableSlotsSchema = new mongoose.Schema({
         default: null
     }
 })
-module.exports = mongoose.model('availableSlot', availableSlotsSchema)
+module.exports = mongoose.model('slots', slotsSchema)

@@ -2,40 +2,28 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const val = "sumit-prd"
+const User = require('../models/user')
+const bcrypt = require('bcrypt')
 
 
-router.post('/student/login', async (req, res) => {
-    const { id, password } = req.body;
+router.post('/user/login', async (req, res) => {
+    const { universityId, password } = req.body;
     try {
-        const student1 = {
-            id, password
-        };
-        if (!val) {
-            return res.status(500).json({ Error: "Secret key is not set" });
+        const user = await User.findOne({ "universityId": universityId });
+        if (!user) {
+            return res.status(401).json({ error: "Invalid email" })
         }
-        const token = jwt.sign(student1, val);
-
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: "Invalid password" })
+        }
+        const data = {
+            universityId, password
+        }
+        const token = jwt.sign(data, val);
         res.status(200).json(token);
     } catch (error) {
-        console.log("error while student login ", error);
-        res.status(500).json({ Error: "internal server error" });
-    }
-});
-
-router.post('/dean/login', async (req, res) => {
-    const { id, password } = req.body;
-    try {
-        const dean1 = {
-            id, password
-        };
-        if (!val) {
-            return res.status(500).json({ Error: "Secret key is not set" });
-        }
-        const token = jwt.sign(dean1, val);
-
-        res.status(200).json(token);
-    } catch (error) {
-        console.log("error while dean login ", error);
+        console.log("error while  login ", error);
         res.status(500).json({ Error: "internal server error" });
     }
 });

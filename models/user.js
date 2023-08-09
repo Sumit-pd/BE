@@ -2,21 +2,21 @@ const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
     universityId: {
-        Type: String,
+        type: String,
         unique: true,
         required: true
     },
     password: {
-        Type: String,
+        type: String,
         required: true
     },
     designation: {
-        Type: String,
+        type: String,
         required: true
     },
     isLoggedIn: {
-        Type: Boolean,
-        required: true
+        type: Boolean,
+        default : false
     },
 });
 module.exports = mongoose.model('User', userSchema);

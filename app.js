@@ -6,8 +6,8 @@ const authRoutes = require('./routes/auth')
 const deanRoutes = require('./routes/dean')
 const studentRoutes = require('./routes/student')
 const dotenv = require('dotenv')
-const availableSlots = require('./models/availableSlots')
-
+const user = require('./models/user')
+const bcrypt = require('bcrypt')
 const port = 5000
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL, {
@@ -28,6 +28,21 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(bodyParser.json())
 app.use(express.json())
+
+
+const hashedPassword = () => {
+    return bcrypt.hashSync("123456789", 12)
+}
+const saveUser = async () => {
+    const Rohit = new user({
+        universityId : "rana123",
+        password : hashedPassword(),
+        designation : "Student",
+
+    })
+    await Rohit.save() ;
+}
+// saveUser()
 
 app.use('/auth', authRoutes);
 app.use('/student', studentRoutes);

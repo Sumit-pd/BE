@@ -1,9 +1,7 @@
 const express = require('express');
 const authenticateUser = require('../middleware/authentication')
 const router = express.Router();
-const availableSlots = require('../models/availableSlots');
-const bookedSlot = require('../models/bookedSlots')
-const app = express()
+const slots = require('../models/slot')
 
 
 
@@ -12,7 +10,7 @@ const app = express()
 
 router.get('/freesessions', authenticateUser, async (req, res) => {
   try {
-    const data = await availableSlots.find({ Isbooked: false }).select('day time dean')
+    const data = await slots.find({ Isbooked: false }).select('day time deanName')
 
     res.status(200).json(data);
   } catch (error) {
@@ -30,19 +28,12 @@ router.post('/bookSession', authenticateUser, async (req, res) => {
     return res.status(422).json({ Error: "fill the required fields" })
   }
   try {
-    await availableSlots.updateOne(
-      { 'dean': deanName, "day": day },
+    await slots.updateOne(
+      { 'deanName': deanName , day : day},
       {
-        $set: { "Isbooked": true }
+        $set: { "Isbooked": true , "bookedBy" : name }
       }
     )
-    const newSlot = new bookedSlot({
-      studentName: name,
-      deanName: deanName,
-      time: "10 am",
-      day: day
-    })
-    await newSlot.save();
     res.status(200).json({ message: "Slot booked sucessfully" })
   }
   catch (err) {
