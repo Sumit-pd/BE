@@ -12,7 +12,7 @@ const availableSlotsSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    dean: {
+    deanName: {
         type: String,
         required: true
     },
